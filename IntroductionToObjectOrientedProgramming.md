@@ -1,17 +1,32 @@
 # Introduction to Object Oriented Programming
 
-1. What is method overloading in OOP?
+1.** What is method overloading in OOP?**
+*Method overloading is defining methods with same name but different signature (arguments types and/or count)*
 2. What is method overriding in OOP? 
+*Method overriding is overriding method implementation (behavior) of superclass in subclass.*
 3. What is method hiding?
-4. What is method hiding?
+*Method hiding is defining new method that hides method of superclass. This concept is related with visibility scope.*
+4. Is Java a pure object oriented language? If not why?
+*Java isn’t pure object oriented language because of a primitive types. But all primitive types have object wrappers.*
 5. What are rules of method overloading and overriding?
+  * *For method overloading programmer need to change a method signature (argument types/count/order (must be different types))
+  * For method overriding programmer need to inherit a new class from existing superclass and define there new implementation of already existing method with @Override annotation.  
+  * Overriding method can’t throw checked exception which is higher in hierarchy, than checked exception thrown by overridden method.
+  * Overriding method can’t reduce access for overridden method.*
 6. The difference between method overloading and overriding?
+*Method overloading is defining methods with same name but different implementation based on arguments in same class and method overriding is defining a new method implementation in subclasses.*
 7. Can we overload a static method?
+*Yes, static method can be overloaded.*
 8. Can we override static method?
+*No, static method can’t be overloaded because it belongs to class and not to objects.*
 9. Can we prevent overriding a method without using the final modifier?
+*Yes, we can use private and static modifiers.*
 10. Can we override a private method?
+*No, we can’t override a private method. We can’t even see it in subclasses.*
 11. What is covariant method overriding?
+*Covariant method overriding is defining new method in subclass with return type that is more narrower than return type in superclass. (subclass of parent method return type)*
 12. Can we change the return type of method to subclass while overriding?
+*Yes, we can do it. But new return type must be a subclass of old return type. (See “covariant method overriding”)*
 13. Can we change the argument list of an overriding method?
 14. Can we override a method which throws runtime exception without throws clause?
 15. How do you call superclass version of an overriding method in sub class?
