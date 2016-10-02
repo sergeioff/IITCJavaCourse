@@ -1,4 +1,4 @@
-package Task5;
+package javaProgrammingBasics.Task5;
 
 /**
  * Write a program that displays the recommended weight (kg), given the user’s age and height (cm).
