@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Display the current time in the title of a frame window using this format: 12:45:43 PM.
+ */
+
 public class Task5 {
     public static void main(String[] args) {
         LocalTime currentTime = LocalTime.now();
