@@ -32,15 +32,14 @@ public class Task1 {
     }
 
     private static void printNumbersWithRecursion(int a, int b) {
+        System.out.print(a + " ");
         if (a == b) {
-            System.out.println(a);
+            System.out.println();
             return;
         }
         if (a < b) {
-            System.out.print(a + " ");
             printNumbersWithRecursion(++a, b);
         } else {
-            System.out.print(a + " ");
             printNumbersWithRecursion(--a, b);
         }
     }
