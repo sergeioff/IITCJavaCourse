@@ -12,7 +12,7 @@ import java.util.Random;
  * and day (1, . . . , 31). Reject invalid input values (e.g., 13 for month and 32 for day).
  */
 public class Task1 {
-    private static int[] daysTemperatures = new int[365];
+    private static double[] daysTemperatures = new double[365];
     private static int[] daysInMonths = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private static String[] monthNames = {"January", "February", "March", "April", "May", "June", "July",
                                           "August", "September", "October", "November", "December"};
@@ -24,21 +24,21 @@ public class Task1 {
         System.out.println("Coldest day in year: " + getColdestDay());
 
         System.out.println("Average temperatures of months: ");
-        int[] averageTemperatures = getAverageTemperaturesOfMonths();
+        double[] averageTemperatures = getAverageTemperaturesOfMonths();
 
         for (int i = 0; i < averageTemperatures.length; i++) {
-            System.out.printf("%s: %d\n", monthNames[i], averageTemperatures[i]);
+            System.out.printf("%s: %.1f\n", monthNames[i], averageTemperatures[i]);
         }
 
         System.out.println("Difference between the hottest and coldest days of months: ");
-        int[] differences = getDifferenceBetweenHottestAndColdestDays();
+        double[] differences = getDifferenceBetweenHottestAndColdestDays();
 
         for (int i = 0; i < differences.length; i++) {
-            System.out.printf("%s: %d\n", monthNames[i], differences[i]);
+            System.out.printf("%s: %.1f\n", monthNames[i], differences[i]);
         }
 
-        System.out.printf("Temperature of %s %d: %d\n", monthNames[2 - 1], 1, getTemperatureOf(2, 1));
-        System.out.printf("Temperature of %s %d: %d\n", monthNames[12 - 1], 5, getTemperatureOf(12, 5));
+        System.out.printf("Temperature of %s %d: %.1f\n", monthNames[2 - 1], 1, getTemperatureOf(2, 1));
+        System.out.printf("Temperature of %s %d: %.1f\n", monthNames[12 - 1], 5, getTemperatureOf(12, 5));
     }
 
     static void init() {
@@ -60,18 +60,18 @@ public class Task1 {
     }
 
     static void showTemperatures() {
-        for (int temperature : daysTemperatures) {
+        for (double temperature : daysTemperatures) {
             System.out.print(temperature + " ");
         }
         System.out.println();
     }
 
     static int getHottestDay() {
-        int max = daysTemperatures[0];
+        double max = daysTemperatures[0];
         int hottestDay = 0;
 
         for (int i = 0; i < daysTemperatures.length; i++) {
-            int dayTemp = daysTemperatures[i];
+            double dayTemp = daysTemperatures[i];
             if (dayTemp > max) {
                 max = dayTemp;
                 hottestDay = i;
@@ -82,11 +82,11 @@ public class Task1 {
     }
 
     static int getColdestDay() {
-        int min = daysTemperatures[0];
+        double min = daysTemperatures[0];
         int coldestDay = 0;
 
         for (int i = 0; i < daysTemperatures.length; i++) {
-            int dayTemp = daysTemperatures[i];
+            double dayTemp = daysTemperatures[i];
             if (dayTemp < min) {
                 min = dayTemp;
                 coldestDay = i;
@@ -96,12 +96,12 @@ public class Task1 {
         return coldestDay;
     }
 
-    static int[] getAverageTemperaturesOfMonths() {
-        int[] temperatures = new int[12];
+    static double[] getAverageTemperaturesOfMonths() {
+        double[] temperatures = new double[12];
 
         int offset = 0;
         for (int i = 0; i < temperatures.length; i++) {
-            int sumOfTemperatures = 0;
+            double sumOfTemperatures = 0;
 
             int days = daysInMonths[i];
 
@@ -116,18 +116,18 @@ public class Task1 {
         return temperatures;
     }
 
-    static int[] getDifferenceBetweenHottestAndColdestDays() {
-        int[] differences = new int[12];
+    static double[] getDifferenceBetweenHottestAndColdestDays() {
+        double[] differences = new double[12];
 
         int offset = 0;
         for (int i = 0; i < differences.length; i++) {
-            int hottest = daysTemperatures[offset];
-            int coldest = daysTemperatures[offset];
+            double hottest = daysTemperatures[offset];
+            double coldest = daysTemperatures[offset];
 
             int days = daysInMonths[i];
 
             for (int j = 0; j < days; j++) {
-                int temp = daysTemperatures[offset + j];
+                double temp = daysTemperatures[offset + j];
 
                 if (temp > hottest) {
                     hottest = temp;
@@ -144,7 +144,7 @@ public class Task1 {
         return differences;
     }
 
-    static int getTemperatureOf(int month, int day) {
+    static double getTemperatureOf(int month, int day) {
         if (month < 1 || month > 12 || day < 1 || day > 31) {
             throw new IllegalArgumentException();
         }
