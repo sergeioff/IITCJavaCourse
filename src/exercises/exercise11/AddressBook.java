@@ -2,6 +2,9 @@ package exercises.exercise11;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * - Write an AddressBook class that manages a collection of Person objects.An AddressBook object
@@ -28,6 +31,7 @@ import java.util.Arrays;
 
 public class AddressBook {
     private ArrayList<Person> persons;
+    private Iterator<Person> iterator;
 
     public AddressBook() {
         persons = new ArrayList<>();
@@ -47,23 +51,55 @@ public class AddressBook {
         persons.remove(person);
     }
 
-    public Person[] searchByFirstName(String firstName) {
-        return (Person[]) persons.stream().filter(p -> p.getFirstName().equals(firstName)).toArray();
+    public List<Person> searchByFirstName(String firstName) {
+        return persons.stream()
+                .filter(p -> p.getFirstName().equals(firstName))
+                .collect(Collectors.toList());
     }
 
-    public Person[] searchByLastName(String lastName) {
-        return (Person[]) persons.stream().filter(p -> p.getLastName().equals(lastName)).toArray();
+    public List<Person> searchByLastName(String lastName) {
+        return persons.stream()
+                .filter(p -> p.getLastName().equals(lastName))
+                .collect(Collectors.toList());
     }
 
-    public Person[] serchByPhoneNumber(String phoneNumber) {
-        return (Person[]) persons.stream().filter(p -> p.getPhoneNumber().equals(phoneNumber)).toArray();
+    public List<Person> serchByPhoneNumber(String phoneNumber) {
+        return persons.stream()
+                .filter(p -> p.getPhoneNumber().equals(phoneNumber))
+                .collect(Collectors.toList());
     }
 
-    public Person[] searchByAge(int age) {
-        return (Person[]) persons.stream().filter(p -> p.getAge() == age).toArray();
+    public List<Person> searchByAge(int age) {
+        return persons.stream()
+                .filter(p -> p.getAge() == age)
+                .collect(Collectors.toList());
     }
 
-    public Person[] serchByGender(boolean gender) {
-        return (Person[]) persons.stream().filter(p -> p.getGender() == gender).toArray();
+    public List<Person> serchByGender(boolean gender) {
+        return persons.stream()
+                .filter(p -> p.getGender() == gender)
+                .collect(Collectors.toList());
+    }
+
+    public Person getFirstPerson() {
+        iterator = persons.iterator();
+        return iterator.next();
+    }
+
+    public Person getNextPerson() {
+        if (iterator == null) {
+            iterator = persons.iterator();
+        }
+
+        if (iterator.hasNext()) {
+            return iterator.next();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "AddressBook: " + persons.toString();
     }
 }

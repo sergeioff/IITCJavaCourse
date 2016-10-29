@@ -54,4 +54,11 @@ public class Person {
     public void setGender(boolean gender) {
         this.gender = gender;
     }
+
+    @Override
+    public String toString() {
+        return "Person {\n\tfirstName: " + firstName + ",\n\tlastName: "
+                + lastName +",\n\tphoneNumber: " + phoneNumber +
+                ",\n\tage: " + age + ",\n\tgender: " + gender +"\n}";
+    }
 }
