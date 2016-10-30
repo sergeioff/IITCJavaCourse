@@ -1,4 +1,4 @@
-package exercises.exercise10;
+package exercises.exercise_10;
 
 /**
  * 8. Дано слово, состоящее только из строчных латинских букв.

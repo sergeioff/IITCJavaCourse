@@ -1,4 +1,4 @@
-package exercises.exercise10;
+package exercises.exercise_10;
 
 /**
  * 7. Дано натуральное число n>1. Выведите все простые множители этого числа

@@ -1,4 +1,4 @@
-package exercises.exercise10;
+package exercises.exercise_10;
 
 /**
  * 2. В теории вычислимости важную роль играет функция Аккермана A(m,n), определенная следующим образом:

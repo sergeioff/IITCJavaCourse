@@ -1,4 +1,4 @@
-package exercises.exercise10;
+package exercises.exercise_10;
 
 /**
  * 5. Дано натуральное число N. Выведите все его цифры по одной, в обратном порядке,

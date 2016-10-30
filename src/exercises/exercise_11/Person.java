@@ -1,4 +1,4 @@
-package exercises.exercise11;
+package exercises.exercise_11;
 
 public class Person {
     private String firstName;

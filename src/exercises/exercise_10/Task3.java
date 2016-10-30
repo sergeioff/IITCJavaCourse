@@ -1,4 +1,4 @@
-package exercises.exercise10;
+package exercises.exercise_10;
 
 /**
  * 3. Дано натуральное число N. Выведите слово YES, если число N является точной степенью двойки,
