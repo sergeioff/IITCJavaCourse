@@ -2,6 +2,9 @@ package exercises.exercise_15.task3;
 
 import java.io.Serializable;
 
+/**
+ * @see Task3
+ */
 public class Contact implements Serializable {
     private String name;
     private String phone;
@@ -30,6 +33,6 @@ public class Contact implements Serializable {
 
     @Override
     public String toString() {
-        return "Contact {\n\tname: " + name + ",\n\tphone: "+ phone + "\n}";
+        return "name: " + name + ", phone: "+ phone;
     }
 }

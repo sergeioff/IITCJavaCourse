@@ -1,7 +1,6 @@
 package exercises.exercise_15.task3;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -13,105 +12,116 @@ import java.util.Scanner;
  * should be re-written with the new data. Designing a user interface for the program is part of the exercise.
  */
 public class Task3 {
-    private static final String PHONEBOOK_FILE = "files/phonebook";
-
-    private static ArrayList<Contact> phoneBook = new ArrayList<>();
-    private static Scanner reader = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
-        initializePhoneBook();
+        PhoneBook phoneBook = SerializationService.initializePhoneBook();
+
+        boolean phoneBookChanged = false;
+
         String selectedAction;
         do {
             System.out.printf("Choose action: \n" +
-                    "\tall - show all contacts\n" +
-                    "\ts - search\n" +
-                    "\ta - add\n" +
-                    "\texit - exit\n");
-            selectedAction = reader.nextLine();
+                    "\t1) All - show all contacts in phone book\n" +
+                    "\t2) Search - search contact by name\n" +
+                    "\t3) Add - add a new contact to phone book\n" +
+                    "\t4) Change - change existing contact\n" +
+                    "\t5) Exit\n");
+
+            selectedAction = scanner.nextLine();
+
+            if (selectedAction.equalsIgnoreCase("exit") || selectedAction.equals("5")) {
+                break;
+            }
+
+            boolean needToChange = false;
 
             switch (selectedAction) {
+                case "1":
+                case "a":
                 case "all":
+                case "All":
                     System.out.println(phoneBook);
                     break;
+                case "4":
+                case "c":
+                case "change":
+                case "Change":
+                    needToChange = true;
+                case "2":
                 case "s":
-                    System.out.println("Enter name of a contact");
-                    String nameOfContact = reader.nextLine();
-                    Contact contact = searchContactByName(nameOfContact);
+                case "search":
+                case "Search":
+                    System.out.print("Enter name to search: ");
+                    String name = scanner.nextLine();
+                    Contact contact = phoneBook.findContactByName(name);
+
                     if (contact == null) {
                         System.out.println("Contact not found");
                         break;
                     }
 
-                    System.out.println("Contact found: ");
-                    System.out.println(contact);
+                    System.out.println("Found contact: " + contact);
 
-                    System.out.println("Would you like to change the contact? (y/n)");
-                    String selection = reader.nextLine();
-                    if (selection.equalsIgnoreCase("y")) {
-                        changeContact(contact);
+                    if (needToChange) {
+                        System.out.printf("Would you like to change: \n" +
+                                "\t1) name\n" +
+                                "\t2) phone\n" +
+                                "\t3) name and phone\n" +
+                                "\t4) nothing\n");
+
+                        String selectedOption = scanner.nextLine();
+
+                        boolean changeBoth = false;
+
+                        System.out.println("=== Changing the contact ===");
+
+                        switch (selectedOption) {
+                            case "3":
+                                changeBoth = true;
+                            case "1":
+                                System.out.print("Enter new name: ");
+                                String newName = scanner.nextLine();
+                                contact.setName(newName);
+
+                                if (!changeBoth) {
+                                    break;
+                                }
+                            case "2":
+                                System.out.print("Enter new phone: ");
+                                String newPhone = scanner.nextLine();
+                                contact.setPhone(newPhone);
+                                break;
+                            case "4":
+                                break;
+                            default:
+                                System.out.println("Invalid option!");
+                        }
+
+                        phoneBookChanged = true;
                     }
                     break;
-                case "a":
-                    addContact();
+                case "3":
+                case "add":
+                case "Add":
+                    System.out.println("=== Addition of a new contact ===");
+                    System.out.print("Enter name: ");
+                    String contactName = scanner.nextLine();
+                    System.out.print("Enter phone: ");
+                    String phone = scanner.nextLine();
+
+                    Contact newContact = new Contact(contactName, phone);
+                    phoneBook.addContact(newContact);
+
+                    phoneBookChanged = true;
                     break;
+                default:
+                    System.out.println("Wrong operation! Please try again.");
             }
-        } while (!"Exit".equalsIgnoreCase(selectedAction));
+        } while (!"exit".equalsIgnoreCase(selectedAction));
 
-        savePhoneBook();
-    }
-
-    private static void initializePhoneBook() {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(PHONEBOOK_FILE))) {
-            int contactsCount = in.readInt();
-            for (int i = 0; i < contactsCount; i++) {
-                Contact contact = (Contact) in.readObject();
-                phoneBook.add(contact);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("Phone book file doesn't exist");
-        } catch (ClassNotFoundException | IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void addContact() {
-        System.out.println("=== Addition of a new contact ===");
-        System.out.print("Enter contact name: ");
-        String contactName = reader.nextLine();
-        System.out.print("Enter contact phone: ");
-        String contactPhone = reader.nextLine();
-        Contact contact = new Contact(contactName, contactPhone);
-        phoneBook.add(contact);
-    }
-
-    private static Contact searchContactByName(String name) {
-        for (Contact contact : phoneBook) {
-            if (contact.getName().equalsIgnoreCase(name)) {
-                return contact;
-            }
-        }
-
-        return null;
-    }
-
-    private static void changeContact(Contact contact) {
-        System.out.println("Enter new name for contact:");
-        String newName = reader.nextLine();
-        System.out.println("Enter new phone for contact:");
-        String newPhone = reader.nextLine();
-
-        contact.setName(newName);
-        contact.setPhone(newPhone);
-    }
-
-    private static void savePhoneBook() {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(PHONEBOOK_FILE))) {
-            out.writeInt(phoneBook.size());
-            for (Contact contact : phoneBook) {
-                out.writeObject(contact);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (phoneBookChanged) {
+            SerializationService.savePhoneBook(phoneBook);
         }
     }
 }
