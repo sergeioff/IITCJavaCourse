@@ -28,7 +28,7 @@ public class Task3 {
                     "\t4) Change - change existing contact\n" +
                     "\t5) Exit\n");
 
-            selectedAction = scanner.nextLine();
+            selectedAction = scanner.nextLine().toLowerCase();
 
             if (selectedAction.equalsIgnoreCase("exit") || selectedAction.equals("5")) {
                 break;
@@ -40,18 +40,15 @@ public class Task3 {
                 case "1":
                 case "a":
                 case "all":
-                case "All":
                     System.out.println(phoneBook);
                     break;
                 case "4":
                 case "c":
                 case "change":
-                case "Change":
                     needToChange = true;
                 case "2":
                 case "s":
                 case "search":
-                case "Search":
                     System.out.print("Enter name to search: ");
                     String name = scanner.nextLine();
                     Contact contact = phoneBook.findContactByName(name);
@@ -103,7 +100,6 @@ public class Task3 {
                     break;
                 case "3":
                 case "add":
-                case "Add":
                     System.out.println("=== Addition of a new contact ===");
                     System.out.print("Enter name: ");
                     String contactName = scanner.nextLine();
