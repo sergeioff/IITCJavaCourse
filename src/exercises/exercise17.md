@@ -91,24 +91,24 @@ where LAST_NAME like '__%c%';
 12. Write a query to find the addresses (location_id, street_address, city, state_province, country_name) of all the departments. 
 
 ```
-select DEPARTMENT_NAME, departments.LOCATION_ID, STREET_ADDRESS, CITY, STATE_PROVINCE, COUNTRY_NAME
-from departments inner join locations on departments.LOCATION_ID = locations.LOCATION_ID
-inner join countries on locations.COUNTRY_ID = countries.COUNTRY_ID;
+select DEPARTMENT_NAME, d.LOCATION_ID, STREET_ADDRESS, CITY, STATE_PROVINCE, COUNTRY_NAME
+from departments d inner join locations l on d.LOCATION_ID = l.LOCATION_ID
+inner join countries c on l.COUNTRY_ID = c.COUNTRY_ID;
 ```
 
 13. Write a query to find the names (first_name, last name), department ID and name of all the employees. 
 
 ```
-select FIRST_NAME, LAST_NAME, employees.DEPARTMENT_ID, DEPARTMENT_NAME
-from employees inner join departments on employees.DEPARTMENT_ID = departments.DEPARTMENT_ID;
+select FIRST_NAME, LAST_NAME, e.DEPARTMENT_ID, DEPARTMENT_NAME
+from employees e inner join departments d on e.DEPARTMENT_ID = d.DEPARTMENT_ID;
 ```
 
 14. Find the names (first_name, last_name), job, department number, and department name of the employees who work in London.
 
 ```
-select FIRST_NAME, LAST_NAME, JOB_TITLE, employees.DEPARTMENT_ID, DEPARTMENT_NAME
-from employees inner join departments on employees.DEPARTMENT_ID = departments.DEPARTMENT_ID
-inner join jobs on employees.JOB_ID = jobs.JOB_ID
-inner join locations on departments.LOCATION_ID = locations.LOCATION_ID
+select FIRST_NAME, LAST_NAME, JOB_TITLE, e.DEPARTMENT_ID, DEPARTMENT_NAME
+from employees e inner join departments d on e.DEPARTMENT_ID = d.DEPARTMENT_ID
+inner join jobs j on e.JOB_ID = j.JOB_ID
+inner join locations l on d.LOCATION_ID = l.LOCATION_ID
 where CITY = 'London';
 ```
