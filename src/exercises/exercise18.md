@@ -69,6 +69,14 @@
 
 9. Write a query to find the names (first_name, last_name) and the salaries of the employees who have a higher salary than the employee whose last_name='Bull'.
 
+	```sql
+	select e.FIRST_NAME, e.LAST_NAME, e.SALARY
+	from employees e inner join employees o on o.LAST_NAME = 'Bull'
+	where e.SALARY > o.SALARY;
+	```
+
+	or
+
     ```sql
     select FIRST_NAME, LAST_NAME, SALARY
     from employees
@@ -78,6 +86,14 @@
     ```
 
 10. Write a query to find the names (first_name, last_name) of all employees who works in the IT department.
+
+	```sql
+	select FIRST_NAME, LAST_NAME
+	from employees e inner join departments d on e.DEPARTMENT_ID = d.DEPARTMENT_ID
+	where DEPARTMENT_NAME = 'IT';
+	```
+
+	or
     
     ```sql
     select FIRST_NAME, LAST_NAME
@@ -136,7 +152,16 @@
     ```
 
 15. Write a query to get the job ID and maximum salary of the employees where maximum salary is greater than or equal to $4000.
+
+	```sql
+	select JOB_ID, max(SALARY) as max_salary
+	from employees
+	group by JOB_ID
+	having max_salary >= 4000;
+	```
     
+    or
+
     ```sql
     select * from
     (select JOB_ID, max(SALARY) as m
