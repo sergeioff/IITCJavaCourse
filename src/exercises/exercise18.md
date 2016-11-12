@@ -116,6 +116,15 @@
     ```sql
     select DEPARTMENT_ID, avg(SALARY)
     from employees
+    group by DEPARTMENT_ID
+    having count(*) > 10; 
+    ```
+
+    or
+
+    ```sql
+    select DEPARTMENT_ID, avg(SALARY)
+    from employees
     where DEPARTMENT_ID in
     (select DEPARTMENT_ID
     from
